@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { publishedPosts } from '../../lib/posts';
+const posts = await publishedPosts();
+---
+<Base title="Writing" description="Notes on software engineering, banking systems, and architecture. In English and Persian."><div class="container section"><p class="eyebrow mb-4">Ideas, explained</p><h1>Writing</h1><p class="mt-6 text-ink-muted">Notes on building reliable software. Written in English and Persian.</p><div class="my-8 flex flex-wrap gap-3" role="group" aria-label="Filter articles by language" data-filters hidden><button class="button" data-language="all" aria-pressed="true">All languages</button><button class="button" data-language="en" aria-pressed="false">English</button><button class="button" data-language="fa" aria-pressed="false" lang="fa">فارسی</button></div><p class="sr-only" role="status" data-count></p><div class="mt-10 grid gap-8 md:grid-cols-2">{posts.map(post => <div data-post-language={post.data.language}><PostCard post={post} /></div>)}</div></div></Base>
+<style>button[aria-pressed='true'] { border-width:2px; border-color:var(--color-ink); font-weight:700; } button[aria-pressed='true']::before { content:'✓'; margin-inline-end:8px; }</style>
+<script>
+  const filters = document.querySelector<HTMLElement>('[data-filters]');
+  if(filters) filters.hidden = false;
+  document.querySelectorAll<HTMLButtonElement>('[data-language]').forEach(button => button.addEventListener('click', () => {
+    document.querySelectorAll('[data-language]').forEach(b => b.setAttribute('aria-pressed', String(b === button)));
+    let count = 0;
+    document.querySelectorAll<HTMLElement>('[data-post-language]').forEach(card => { card.hidden = button.dataset.language !== 'all' && card.dataset.postLanguage !== button.dataset.language; if(!card.hidden) count++; });
+    const status = document.querySelector('[data-count]'); if(status) status.textContent = `${count} articles shown`;
+  }));
+</script>

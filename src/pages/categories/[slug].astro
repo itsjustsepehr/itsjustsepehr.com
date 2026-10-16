@@ -1,0 +1,10 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostCard from '../../components/PostCard.astro';
+import { categories, href } from '../../lib/site';
+import { publishedPosts } from '../../lib/posts';
+export function getStaticPaths() { return categories.map(category => ({ params: { slug: category.slug }, props: { category } })); }
+const { category } = Astro.props;
+const posts = (await publishedPosts()).filter(post => post.data.category === category.slug);
+---
+<Base title={category.name} description={category.description}><div class="container section"><a class="text-link mb-6 text-sm" href={href('categories/')}>← All categories</a><h1>{category.name}</h1><p class="mt-6 text-ink-muted">{category.description}</p><p class="mt-4 text-sm text-ink-muted">{posts.length} {posts.length === 1 ? 'article' : 'articles'}</p><div class="mt-12 grid gap-8 md:grid-cols-2">{posts.map(post => <PostCard post={post} />)}</div>{posts.length === 0 && <p class="mt-12">No articles yet. New notes will appear here.</p>}</div></Base>

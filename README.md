@@ -1,0 +1,132 @@
+# itsjustsepehr
+
+A static Astro personal website for Sepehr. Astro 7, Tailwind CSS 4, MDX content collections, TypeScript, self-hosted Inter and Vazirmatn, and small vanilla JavaScript enhancements.
+
+## Local setup
+
+Use Node.js 24 LTS and npm.
+
+```sh
+npm install
+npm run dev
+```
+
+For reproducible installation and production verification:
+
+```sh
+npm ci
+npm run build
+npm run preview
+```
+
+`build` runs `astro check` before generating `dist/`. The lockfile is tracked. No API keys, database, runtime server, or external font requests are required.
+
+## Pages and source
+
+- `/`: homepage
+- `/writing/`: article list with English/Persian filter
+- `/writing/[id]/`: MDX article routes
+- `/categories/` and `/categories/[slug]/`: five category landing pages
+- `/about/`, `/resume/`, `/portfolio/`
+- `/rss.xml`, `/sitemap-index.xml`, `/robots.txt`, `/404.html`
+
+`src/content.config.ts` defines the content schema. `src/lib/posts.ts` centralizes publication filtering. `src/lib/site.ts` defines categories and base-aware links. `src/layouts/Base.astro` owns navigation, metadata, and motion. `src/styles/global.css` contains the design tokens and shared styling. See `DESIGN_SYSTEM.md` for the complete design contract.
+
+## Authoring
+
+Create a file in `src/content/writing/your-slug.mdx`. Its filename becomes the URL slug.
+
+```yaml
+---
+title: "A useful engineering lesson"
+description: "A short, specific summary."
+category: engineering
+tags: [reliability, practice]
+date: 2026-10-16
+cover: /placeholders/cover.svg
+coverAlt: "Neutral article cover placeholder"
+language: en
+draft: true
+---
+```
+
+Allowed categories: `artificial-intelligence`, `web-development`, `banking-systems`, `software-architecture`, `engineering`. Use `language: fa` for Persian. The article document becomes RTL, while code stays LTR. Keep code blocks fenced and use the appropriate language identifier.
+
+Set `draft: false` when ready. Drafts and future-dated articles are excluded from routes, indexes, categories, RSS, and sitemap. A future date becomes eligible only on a later rebuild; no scheduled publishing workflow is enabled.
+
+Reusable components work inside MDX:
+
+```mdx
+import Callout from '../../components/Callout.astro';
+
+<Callout title="A useful distinction">
+Explain the assumption that matters.
+</Callout>
+```
+
+Only trusted authors should edit MDX: it is executable project source. Use the `href` helper for internal links and public asset paths to support project-site prefixes. Put final covers in `public/covers/`, then set a root-relative `cover` value such as `/covers/my-article.webp`. Do not include a repository prefix in frontmatter.
+
+The five published articles are starter examples for review and replacement. A sixth draft demonstrates filtering. The résumé includes only supplied facts; the portfolio is an explicit empty state. No invented employers, project achievements, or education appear.
+
+## Images and typography
+
+The hero and navbar use initial-based portrait placeholders. Replace the frame in `src/pages/index.astro` with your own image, retaining a 4:5 aspect ratio and explicit width/height. Replace the navbar initial in `Base.astro` with a circular avatar. Article cover placeholders are 960×540 SVG assets, not generated illustrations. Use a raster image if you later add social-preview images, since platform support for SVG previews varies.
+
+Inter and Vazirmatn are bundled locally through Fontsource packages. Code uses system monospace. Keep only these two custom families.
+
+## GitHub Pages deployment
+
+Repository: `itsjustsepehr/itsjustsepehr.com`.
+Intended URL after successful deployment: `https://itsjustsepehr.github.io/itsjustsepehr.com/`.
+
+1. Create an empty public repository named `itsjustsepehr.com` in the `itsjustsepehr` account.
+2. In **Settings → Pages → Build and deployment**, choose **GitHub Actions**.
+3. Push this project's contents to the repository root on `main`, including `package-lock.json` and `.github/workflows/`.
+
+```sh
+git init -b main
+git add .
+git commit -m "Build itsjustsepehr Astro website"
+git remote add origin https://github.com/itsjustsepehr/itsjustsepehr.com.git
+git push -u origin main
+```
+
+If a repository is already initialized, use its existing Git history instead of reinitializing. If an `origin` remote already exists, inspect it before changing it.
+
+4. Open the Actions tab. The deploy workflow installs with `npm ci`, checks types, builds static files, uploads the Pages artifact, and deploys it.
+5. Confirm both jobs are green, then visit the URL shown by the deployment. A configured URL is not proof of a completed deployment.
+
+The workflow needs repository `contents: read`, `pages: write`, and `id-token: write`. Pull requests run a separate build check without deployment. Pages must be enabled before the deployment workflow's configure step.
+
+### User sites and project sites
+
+Configuration derives the owner and repository from `GITHUB_REPOSITORY` in Actions. Locally it defaults to `itsjustsepehr/itsjustsepehr.com`.
+
+| Repository | Site origin | Base |
+| --- | --- | --- |
+| `itsjustsepehr.github.io` | `https://itsjustsepehr.github.io` | `/` |
+| `personal-site` | `https://itsjustsepehr.github.io` | `/personal-site` |
+
+To test a project-site build locally:
+
+```sh
+GITHUB_REPOSITORY=itsjustsepehr/personal-site npm run build
+GITHUB_REPOSITORY=itsjustsepehr/personal-site npm run preview
+```
+
+Visit the printed origin with `/personal-site/` appended. Root-relative links use the shared helper. Styles, scripts, canonical URLs, RSS, sitemap, and placeholder assets follow the configured base.
+
+### Future custom domain
+
+1. Add the domain in repository **Settings → Pages** and configure DNS using GitHub's current instructions.
+2. Add repository Actions variables `SITE_URL=https://your-domain.example` and `BASE_PATH=/`.
+3. Add `public/CNAME` containing only the hostname.
+4. Rebuild and redeploy; enable HTTPS when GitHub makes it available.
+
+For local custom-domain validation, export `SITE_URL` and `BASE_PATH` in the shell. `.env.example` documents these variables; the config reads process environment variables, not a local `.env` file automatically.
+
+Official guides: [Astro GitHub Pages deployment](https://docs.astro.build/en/guides/deploy/github/) and [GitHub custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
+
+## Verification and limitations
+
+See `VERIFICATION.md` for the performed checks and outstanding deployment/browser verification. This project contains no analytics or tracking. Add real portrait, final writing, experience details, and portfolio entries as iterative content updates.

@@ -1,0 +1,6 @@
+---
+import Base from '../layouts/Base.astro';
+import { href } from '../lib/site';
+---
+<Base title="Résumé"><div class="container section"><div class="prose"><p class="eyebrow">Professional overview</p><h1>Sepehr</h1><p class="text-xl text-ink-muted">Software engineer / Banking systems</p><h2>Profile</h2><p>Software engineer with 8 years of experience, currently working on banking systems in Iran.</p><h2>Focus</h2><ul><li>Software engineering</li><li>Banking systems</li><li>Reliable systems and software architecture</li></ul><h2>Detailed experience</h2><p>Full employment history, selected achievements, and education will be added here.</p><div class="flex flex-wrap gap-4 mt-8 no-print"><button class="button" id="print-resume">Print / Save as PDF</button><a class="text-link" href={href('portfolio/')}>View portfolio →</a></div></div></div></Base>
+<script>document.getElementById('print-resume')?.addEventListener('click', () => window.print());</script>

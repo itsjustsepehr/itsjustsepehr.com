@@ -1,0 +1,5 @@
+---
+interface Props { title?: string; }
+const { title = 'Keep in mind' } = Astro.props;
+---
+<aside class="my-8 rounded-lg border border-border bg-surface p-6"><strong class="block mb-2">{title}</strong><slot /></aside>
