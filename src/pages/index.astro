@@ -1,15 +1,25 @@
 ---
 import HomeHero from '../components/HomeHero';
+import HomePostCard from '../components/HomePostCard.astro';
 import Base from '../layouts/Base.astro';
-import PostCard from '../components/PostCard.astro';
-import CategoryGrid from '../components/CategoryGrid.astro';
 import { publishedPosts } from '../lib/posts';
-import { href } from '../lib/site';
-const posts = (await publishedPosts()).slice(0, 4);
+import { categories, href } from '../lib/site';
+import '../styles/home.css';
+const posts = (await publishedPosts()).slice(0,4);
 ---
-<Base title="itsjustsepehr">
+<Base title="itsjustsepehr" home>
   <HomeHero client:load writingHref={href('writing/')} aboutHref={href('about/')} />
-  <section class="container section border-t border-border" aria-labelledby="writing-heading"><div class="mb-10 flex flex-wrap items-end justify-between gap-4"><div><p class="eyebrow mb-3">Notes from the work</p><h2 id="writing-heading">Latest writing</h2></div><a class="text-link text-sm" href={href('writing/')}>All writing →</a></div><div class="grid gap-8 md:grid-cols-2">{posts.map(post => <PostCard post={post} />)}</div></section>
-  <section class="container section border-t border-border" aria-labelledby="categories-heading"><div class="mb-10" data-reveal><p class="eyebrow mb-3">Follow a thread</p><h2 id="categories-heading">A few things I think about.</h2></div><CategoryGrid /></section>
-  <section class="container section border-t border-border grid gap-8 md:grid-cols-2" aria-labelledby="about-heading" data-reveal><div><p class="eyebrow mb-3">The person behind the code</p><h2 id="about-heading" class="max-w-[16ch]">Eight years of building. Always learning.</h2></div><div><p class="text-ink-muted">My work sits at the intersection of software engineering and banking systems. I care about reliability, clear decisions, and making complex systems easier to understand.</p><p class="mt-4 text-ink-muted">This is my space for sharing what I learn—in English and Persian.</p><div class="mt-6 flex flex-wrap gap-6"><a class="text-link" href={href('resume/')}>View résumé →</a><a class="text-link" href={href('portfolio/')}>Portfolio →</a></div></div></section>
+  <div class="home-container discipline-strip" aria-label="Areas of focus"><span>BUILT ON EXPERIENCE</span><span>Software engineering</span><span>Banking systems</span><span>English & فارسی</span></div>
+  <section class="home-container home-section" id="writing" aria-labelledby="writing-heading">
+    <div class="section-heading"><div><p class="section-kicker"><span>01</span> Notes from the work</p><h2 id="writing-heading">Ideas worth<br /><span>writing down.</span></h2></div><div class="section-intro"><p>Practical lessons, open questions, and a closer look at how software works.</p><a class="glass-link" href={href('writing/')}>Explore all writing <span aria-hidden="true">↗</span></a></div></div>
+    <div class="journal-grid">{posts.map((post,index)=><HomePostCard post={post} index={index}/>)}</div>
+  </section>
+  <section class="home-container home-section topics-section" aria-labelledby="topics-heading">
+    <div class="section-heading"><div><p class="section-kicker"><span>02</span> Follow your curiosity</p><h2 id="topics-heading">Different threads.<br /><span>Connected thinking.</span></h2></div><p class="section-intro">From the interface you see to the systems you rely on. Pick a thread and explore.</p></div>
+    <div class="topic-grid">{categories.map((category,index)=><a class:list={['topic-card',{'topic-card-wide':index===0}]} href={href(`categories/${category.slug}/`)} data-reveal><div class="topic-top"><span class="topic-number">0{index+1} /</span><span class="topic-arrow" aria-hidden="true">↗</span></div><div><h3>{category.name}</h3><p>{category.description}</p></div>{index===0 && <span class="topic-orbit" aria-hidden="true"/>}</a>)}</div>
+  </section>
+  <section class="home-container home-section" id="about" aria-labelledby="about-heading">
+    <div class="about-frame" data-reveal><div class="about-identity"><div class="identity-mark" aria-hidden="true">s<span>.</span></div><p>SEPEHR<span>Software engineer · Iran</span></p><div class="identity-line" aria-hidden="true"/><span class="identity-caption">Thoughtful software.<br />Built with care.</span></div><div class="about-copy"><p class="section-kicker"><span>03</span> Behind the work</p><h2 id="about-heading">Eight years of building.<br /><span>Always learning.</span></h2><p>My work sits at the intersection of software engineering and banking systems. I care about reliability, clear decisions, and making complex systems easier to understand.</p><p>This is my space for sharing what I learn—in English and Persian. From everyday engineering decisions to the bigger picture behind them.</p><div class="about-actions"><a class="glass-link" href={href('about/')}>A little more about me <span aria-hidden="true">↗</span></a><a class="quiet-link" href={href('resume/')}>View résumé <span aria-hidden="true">↗</span></a></div></div></div>
+  </section>
+  <section class="home-container closing-section" aria-labelledby="closing-heading"><p class="section-kicker">Keep exploring</p><div class="closing-row"><h2 id="closing-heading">The work continues<span>.</span></h2><a class="glass-link" href={href('portfolio/')}>Explore my portfolio <span aria-hidden="true">↗</span></a></div><p>Systems to build. Ideas to test. Lessons to share.</p></section>
 </Base>

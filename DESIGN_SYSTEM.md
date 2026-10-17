@@ -76,3 +76,27 @@ The hero headline is the focal point of the first screen. Later sections each ha
 Articles have one primary category and multiple tags. English and Persian articles coexist; a language filter helps browsing. They are not assumed to be translations, so no false alternate-language SEO links are emitted. Résumé and portfolio details remain honest placeholders until supplied.
 
 Start future iterations with real portrait, reviewed writing, verified experience, and real case studies. Preserve the restrained palette and reading-first layout.
+
+
+## Homepage: shader and glass extension
+
+The homepage now uses the approved shader hero as its visual foundation. Its
+`glass-home` body class scopes the dark palette; other routes retain their
+existing reading theme. `src/styles/home.css` owns this extension.
+
+- Canvas: near-black `#08090d`; elevated panels `#101218`; borders `#292c35`.
+- Text: `#f3f4f6` for headings, `#a8acb8` for supporting copy; pale blue actions.
+- Type: Inter with restrained uppercase labels and large, tightly spaced titles;
+  Persian content keeps Vazirmatn, RTL direction, and comfortable line height.
+- Surfaces: fine borders, subtle translucent fills, rounded cards and pill links.
+- Layout: 1200px content width; two-column article grid; asymmetrical topic grid;
+  framed about panel; portfolio closing section. Grids collapse on small screens.
+- Article imagery: preserve actual cover images. For placeholder covers only,
+  render lightweight SVG wave artwork inspired by the hero. No external assets.
+- Animation: one WebGL canvas in the hero; no additional React islands. Existing
+  reduced-motion, offscreen pause, and WebGL fallback behavior are retained.
+- Navigation: native links, visible keyboard focus, base-path-aware destinations,
+  accessible section headings and decorative artwork hidden from screen readers.
+
+Homepage-specific article cards live in `src/components/HomePostCard.astro` so
+writing index and category pages keep their current components.
