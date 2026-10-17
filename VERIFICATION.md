@@ -25,3 +25,16 @@
 ## Content still to supply
 
 Real portrait/avatar, final article covers, reviewed final article copy, detailed résumé history, and public portfolio case studies. The implementation deliberately uses placeholders and known biographical facts.
+
+
+## Full homepage glass redesign
+
+- `npm run build`: passed; Astro check reported 0 errors, warnings, or hints.
+- Existing Vite warning remains for the Three.js client chunk exceeding 500 kB.
+- Headless Chromium tested the production build at 1440px, 390px, and 320px.
+- No page JavaScript errors or horizontal overflow at those widths.
+- React hero hydration completed; canvas dimensions matched each viewport.
+- Four collection-backed article cards, five category links, and one H1 rendered.
+- Full-page desktop/mobile screenshots visually reviewed, including Persian RTL.
+- Reduced-motion preference applied during screenshot review.
+- About route confirmed without the homepage body theme class.

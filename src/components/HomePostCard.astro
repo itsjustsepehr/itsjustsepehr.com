@@ -1,0 +1,21 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { href, categoryName } from '../lib/site';
+interface Props { post: CollectionEntry<'writing'>; index: number }
+const { post, index } = Astro.props;
+const { data } = post;
+const placeholder = data.cover.includes('placeholders/');
+---
+<article class:list={['journal-card', `journal-card-${index % 4}`]} data-reveal>
+  <a href={href(`writing/${post.id}/`)} class="journal-cover" tabindex="-1" aria-hidden="true">
+    {placeholder ? <div class="cover-art">
+      <svg viewBox="0 0 600 320" fill="none" aria-hidden="true"><defs><linearGradient id={`wave-${index}`}><stop stop-color="#80aaff" stop-opacity="0"/><stop offset=".45" stop-color="#d9e6ff"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".15"/></linearGradient></defs>{Array.from({length:7},(_,i)=><path d={`M-40 ${110+i*15} C 120 ${-35+i*24}, 270 ${390-i*19}, 640 ${65+i*21}`} stroke={`url(#wave-${index})`} stroke-width={i===3 ? 2 : 0.7}/>)}</svg>
+      <span class="cover-index">FIELD NOTES / 0{index+1}</span><span class="cover-category">{categoryName(data.category)}</span>
+    </div> : <img src={href(data.cover)} alt="" width="960" height="540" loading="lazy" decoding="async" />}
+    <span class="cover-arrow">↗</span>
+  </a>
+  <div class="journal-body">
+    <div class="journal-meta"><span class="language-tag">{data.language === 'fa' ? 'فارسی' : 'English'}</span><time datetime={data.date.toISOString()}>{data.date.toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric',timeZone:'UTC'})}</time></div>
+    <div lang={data.language} dir={data.language==='fa'?'rtl':'ltr'}><h3><a href={href(`writing/${post.id}/`)}>{data.title}</a></h3><p>{data.description}</p><a class="journal-read" href={href(`writing/${post.id}/`)} aria-label={`${data.language==='fa'?'خواندن':'Read'}: ${data.title}`}>{data.language==='fa'?'خواندن نوشته ←':'Read the story ↗'}</a></div>
+  </div>
+</article>
