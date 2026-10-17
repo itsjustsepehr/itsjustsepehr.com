@@ -1,4 +1,5 @@
 ---
+import HomeHero from '../components/HomeHero';
 import Base from '../layouts/Base.astro';
 import PostCard from '../components/PostCard.astro';
 import CategoryGrid from '../components/CategoryGrid.astro';
@@ -7,10 +8,7 @@ import { href } from '../lib/site';
 const posts = (await publishedPosts()).slice(0, 4);
 ---
 <Base title="itsjustsepehr">
-  <section class="container section grid items-center gap-12 lg:grid-cols-[1.6fr_1fr] lg:gap-20">
-    <div><p class="eyebrow mb-6">Software engineer / Banking systems</p><h1 class="max-w-[15ch]">Building reliable systems.<br /><span class="text-ink-muted">Sharing what I learn.</span></h1><p class="mt-8 max-w-[52ch] text-ink-muted">I’m Sepehr, a software engineer with 8 years of experience. I work on banking systems in Iran and write about software, architecture, and the lessons along the way.</p><div class="mt-8 flex flex-wrap gap-4"><a class="button primary" href={href('writing/')}>Explore my writing <span class="ms-3" aria-hidden="true">→</span></a><a class="button" href={href('about/')}>More about me</a></div></div>
-    <figure class="w-full max-w-80 justify-self-center lg:justify-self-end"><div class="flex aspect-[4/5] flex-col items-center justify-center rounded-xl border border-border bg-disabled-bg/50"><span class="mb-4 flex size-20 items-center justify-center rounded-full border border-border bg-surface text-2xl text-ink-muted" aria-hidden="true">S</span><span class="text-xs tracking-widest text-ink-muted">PORTRAIT PLACEHOLDER</span></div><figcaption class="mt-4 flex justify-between text-xs text-ink-muted"><span>Sepehr / Software engineer</span><span>Iran</span></figcaption></figure>
-  </section>
+  <HomeHero client:load writingHref={href('writing/')} aboutHref={href('about/')} />
   <section class="container section border-t border-border" aria-labelledby="writing-heading"><div class="mb-10 flex flex-wrap items-end justify-between gap-4"><div><p class="eyebrow mb-3">Notes from the work</p><h2 id="writing-heading">Latest writing</h2></div><a class="text-link text-sm" href={href('writing/')}>All writing →</a></div><div class="grid gap-8 md:grid-cols-2">{posts.map(post => <PostCard post={post} />)}</div></section>
   <section class="container section border-t border-border" aria-labelledby="categories-heading"><div class="mb-10" data-reveal><p class="eyebrow mb-3">Follow a thread</p><h2 id="categories-heading">A few things I think about.</h2></div><CategoryGrid /></section>
   <section class="container section border-t border-border grid gap-8 md:grid-cols-2" aria-labelledby="about-heading" data-reveal><div><p class="eyebrow mb-3">The person behind the code</p><h2 id="about-heading" class="max-w-[16ch]">Eight years of building. Always learning.</h2></div><div><p class="text-ink-muted">My work sits at the intersection of software engineering and banking systems. I care about reliability, clear decisions, and making complex systems easier to understand.</p><p class="mt-4 text-ink-muted">This is my space for sharing what I learn—in English and Persian.</p><div class="mt-6 flex flex-wrap gap-6"><a class="text-link" href={href('resume/')}>View résumé →</a><a class="text-link" href={href('portfolio/')}>Portfolio →</a></div></div></section>

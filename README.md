@@ -130,3 +130,43 @@ Official guides: [Astro GitHub Pages deployment](https://docs.astro.build/en/gui
 ## Verification and limitations
 
 See `VERIFICATION.md` for the performed checks and outstanding deployment/browser verification. This project contains no analytics or tracking. Add real portrait, final writing, experience details, and portfolio entries as iterative content updates.
+
+
+## React shader homepage hero
+
+The homepage hero is an Astro React island (`src/components/HomeHero.tsx`,
+`client:load`). Astro renders its text and links at build time; React hydrates the
+animation. The rest of the page keeps the existing Astro components.
+
+- Shared UI: `src/components/ui/` (`@/components/ui`). This is the requested
+  `/components/ui` convention within this project's `src` source root. Keeping
+  reusable primitives here makes shadcn imports and CLI additions predictable;
+  a second root-level components folder is unnecessary.
+- Styles: `src/styles/global.css`, with Tailwind 4 and semantic color tokens.
+- Utilities: `src/lib/utils.ts` (`cn` combines clsx and tailwind-merge).
+- TypeScript: strict Astro configuration plus React JSX and the `@/*` alias.
+- `components.json` configures shadcn. No new project or Tailwind initialization
+  is required. To add future primitives, run `npx shadcn@latest add <component>`
+  and review any proposed changes to existing tokens/components.
+
+From a clean checkout run `npm ci`, `npm run build`, then `npm run dev`.
+React support uses `@astrojs/react`, `react`, and `react-dom`; the supplied
+components also require `three`, `@radix-ui/react-slot`,
+`class-variance-authority`, `clsx`, and `tailwind-merge`, with React/Three types.
+All are recorded in package.json and the lockfile.
+
+`HomeHero` receives only `writingHref` and `aboutHref`, built with the existing
+base-path helper. It needs no providers, remote assets, or global state.
+`src/components/demo.tsx` is an un-routed composition example. The hero preserves
+Sepehr's introduction rather than publishing the generic design/availability
+claims from the sample.
+
+Integration adjustments to the supplied components: the canvas is absolute and
+container-sized rather than fixed over the whole site; drawing-buffer resolution
+accounts for pixel ratio (capped at 1.5); animation uses elapsed time, pauses off
+screen/in background tabs, and respects reduced motion. A CSS background remains
+when WebGL is unavailable or its context is lost. Resources/listeners are disposed
+on unmount. The liquid button uses Radix Slottable for real links, unique filter
+IDs, valid inline markup, and a blur fallback. Button and MetalButton exports are
+retained, with MetalButton interactions using CSS so caller event handlers remain
+intact. Header typography and spacing adapt to mobile without changing navigation.
