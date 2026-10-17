@@ -12,6 +12,8 @@ concurrency:
   cancel-in-progress: false
 jobs:
   build:
+    environment:
+      name: github-pages
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -23,8 +25,8 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          SITE_URL: ${{ vars.SITE_URL }}
-          BASE_PATH: ${{ vars.BASE_PATH }}
+          SITE_URL: ${{ vars.SITE_URL || 'https://itsjustsepehr.com' }}
+          BASE_PATH: ${{ vars.BASE_PATH || '/' }}
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
