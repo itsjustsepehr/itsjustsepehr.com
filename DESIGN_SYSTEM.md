@@ -100,3 +100,19 @@ existing reading theme. `src/styles/home.css` owns this extension.
 
 Homepage-specific article cards live in `src/components/HomePostCard.astro` so
 writing index and category pages keep their current components.
+
+
+## Site-wide glass theme (supersedes homepage-only scope above)
+
+The shared Base layout now imports the glass palette and `src/styles/site.css`
+for every HTML page. `interior-page` adds restrained ambient backgrounds, readable
+prose, glass buttons, dark callouts, tags, and code/table treatments. Homepage
+layout styles remain reusable without adding WebGL or React to interior pages.
+Writing/category listing cards reuse the homepage card component, and category
+navigation uses the same glass topic panels. Real article covers are preserved;
+placeholder covers receive decorative SVG waves. Persian content retains RTL and
+Vazirmatn. Résumé printing switches to white with dark text.
+
+The navbar places Writing, Categories, and About on the left, followed by the
+brand on the right. DOM order follows visual order, including on mobile and
+Persian pages; the navigation itself stays English and LTR.

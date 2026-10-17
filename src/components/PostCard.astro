@@ -1,14 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import { href, categoryName } from '../lib/site';
-interface Props { post: CollectionEntry<'writing'>; }
-const { post } = Astro.props;
-const { data } = post;
+import HomePostCard from './HomePostCard.astro';
+interface Props { post: CollectionEntry<'writing'>; index?: number }
+const { post, index = 0 } = Astro.props;
 ---
-<article data-reveal class="overflow-hidden rounded-xl border border-border bg-surface">
-  <img src={href(data.cover)} alt={data.coverAlt} width="960" height="540" loading="lazy" decoding="async" class="aspect-video w-full object-cover border-b border-border" />
-  <div class="p-6 sm:p-8">
-    <div class="mb-4 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-muted"><span>{categoryName(data.category)}</span><span aria-hidden="true">/</span><span>{data.language === 'fa' ? 'فارسی' : 'English'}</span><time datetime={data.date.toISOString()}>{data.date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' })}</time></div>
-    <div lang={data.language} dir={data.language === 'fa' ? 'rtl' : 'ltr'}><h3 class="mb-3 text-2xl">{data.title}</h3><p class="text-ink-muted">{data.description}</p><a class="text-link mt-4 text-sm font-semibold" href={href(`writing/${post.id}/`)} aria-label={`${data.language === 'fa' ? 'خواندن' : 'Read'}: ${data.title}`}>{data.language === 'fa' ? 'خواندن نوشته ←' : 'Read article →'}</a></div>
-  </div>
-</article>
+<HomePostCard post={post} index={index} />

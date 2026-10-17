@@ -1,4 +1,4 @@
 ---
 import { categories, href } from '../lib/site';
 ---
-<div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">{categories.map((c, i) => <a data-reveal href={href(`categories/${c.slug}/`)} class="rounded-xl border border-border bg-surface p-6"><span class="mb-8 flex items-center justify-between text-xs text-ink-muted"><span>0{i + 1}</span><span aria-hidden="true">↗</span></span><h3 class="mb-3">{c.name}</h3><p class="text-sm text-ink-muted">{c.description}</p></a>)}</div>
+<div class="topic-grid">{categories.map((c,i)=><a data-reveal href={href(`categories/${c.slug}/`)} class:list={['topic-card', {'topic-card-wide':i===0}]}><div class="topic-top"><span class="topic-number">0{i+1} /</span><span class="topic-arrow" aria-hidden="true">↗</span></div><div><h3>{c.name}</h3><p>{c.description}</p></div>{i===0 && <span class="topic-orbit" aria-hidden="true"/>}</a>)}</div>

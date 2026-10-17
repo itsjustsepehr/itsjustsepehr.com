@@ -4,7 +4,6 @@ import HomePostCard from '../components/HomePostCard.astro';
 import Base from '../layouts/Base.astro';
 import { publishedPosts } from '../lib/posts';
 import { categories, href } from '../lib/site';
-import '../styles/home.css';
 const posts = (await publishedPosts()).slice(0,4);
 ---
 <Base title="itsjustsepehr" home>

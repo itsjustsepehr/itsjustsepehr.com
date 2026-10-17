@@ -38,3 +38,17 @@ Real portrait/avatar, final article covers, reviewed final article copy, detaile
 - Full-page desktop/mobile screenshots visually reviewed, including Persian RTL.
 - Reduced-motion preference applied during screenshot review.
 - About route confirmed without the homepage body theme class.
+
+
+## Site-wide theme and left navbar
+
+- Production build passed; Astro check: zero errors/warnings/hints.
+- Existing Three.js bundle-size warning remains unchanged.
+- Browser checks across 11 page types at 1440, 390, and 320 pixels passed:
+  homepage, writing index, category index, empty/populated categories, about,
+  portfolio, résumé, English/Persian articles, and 404.
+- All tested pages have the shared dark theme, one H1, left-aligned nav links,
+  and no horizontal overflow. No JavaScript page errors were observed.
+- Persian language filtering and resetting to all articles passed.
+- Résumé print emulation confirmed a white background.
+- Desktop About and mobile Persian article screenshots visually reviewed.
