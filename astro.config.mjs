@@ -1,7 +1,10 @@
 import { defineConfig } from 'astro/config';
+import { existsSync } from 'node:fs';
+import { loadEnvFile } from 'node:process';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+if (existsSync('.env')) loadEnvFile();
 const repository = process.env.GH_REPOSITORY || 'itsjustsepehr/itsjustsepehr.com';
 const [owner, repo] = repository.split('/');
 const site = process.env.SITE_URL || `https://${owner}.github.io`;
