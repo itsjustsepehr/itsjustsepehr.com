@@ -32,9 +32,9 @@ const nav = [{ label: 'Writing', path: 'writing/' }, { label: 'Categories', path
 <body class:list={["glass-home", { "interior-page": !home }]}>
   <a href="#main" class="skip button primary">{language === 'fa' ? 'رفتن به محتوا' : 'Skip to content'}</a>
   <header class="site-header border-b border-border" lang="en" dir="ltr">
-    <div class="site-navbar container flex min-h-24 flex-wrap items-center justify-between gap-x-8 gap-y-2 py-4">
-      <nav aria-label="Main navigation" class="flex flex-wrap gap-4 sm:gap-8">{nav.map(n => <a class="flex min-h-11 items-center text-sm text-ink-muted aria-[current=page]:font-semibold aria-[current=page]:underline" href={href(n.path)} aria-current={Astro.url.pathname.startsWith(href(n.path)) ? 'page' : undefined}>{n.label}</a>)}</nav>
+    <div class="site-navbar container flex flex-col items-start gap-2 py-4">
       <a href={href()} class="flex min-h-11 items-center gap-3 font-semibold tracking-tight" aria-label="itsjustsepehr home"><span class="flex size-10 items-center justify-center rounded-full border border-border bg-disabled-bg text-xs" aria-hidden="true">S</span><span>itsjustsepehr.</span></a>
+      <nav aria-label="Main navigation" class="flex flex-wrap gap-4 sm:gap-8">{nav.map(n => <a class="flex min-h-11 items-center text-sm text-ink-muted aria-[current=page]:font-semibold aria-[current=page]:underline" href={href(n.path)} aria-current={Astro.url.pathname.startsWith(href(n.path)) ? 'page' : undefined}>{n.label}</a>)}</nav>
     </div>
   </header>
   <main id="main" tabindex="-1"><slot /></main>

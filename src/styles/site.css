@@ -1,6 +1,6 @@
 /* Shared shell and reading surfaces, extending the approved homepage palette. */
-.glass-home .site-navbar { flex-wrap:nowrap; gap:24px; }
-.glass-home .site-header .site-navbar nav { order:0; width:auto; margin-inline-end:auto; justify-content:flex-start; flex-wrap:wrap; gap:24px; }
+.glass-home .site-header .site-navbar { flex-direction:column; align-items:flex-start; justify-content:flex-start; flex-wrap:nowrap; gap:8px; }
+.glass-home .site-header .site-navbar nav { width:100%; margin:0; justify-content:flex-start; flex-wrap:wrap; gap:24px; }
 .glass-home .site-navbar > a { flex-shrink:0; }
 .glass-home .site-header .site-navbar nav a[aria-current='page'] { color:#f3f4f6; text-decoration:underline; text-underline-offset:8px; text-decoration-color:#9bb8eb; }
 .glass-home { min-height:100vh; display:flex; flex-direction:column; }
@@ -40,19 +40,14 @@
 .interior-page [lang='fa'] .prose { line-height:2; }
 .interior-page .journal-card { height:100%; }
 @media(max-width:640px) {
-  .glass-home .site-navbar { align-items:flex-start; gap:14px; }
-  .glass-home .site-header .site-navbar nav { width:auto; gap:12px; }
-  .glass-home .site-navbar > a { gap:6px; font-size:11px; }
-  .glass-home .site-navbar > a > span:first-child { width:28px; height:28px; }
-  .glass-home .site-header .site-navbar nav a { font-size:11px; }
+  .glass-home .site-header .site-navbar nav { gap:24px; }
+  .glass-home .site-navbar > a { gap:10px; font-size:14px; }
+  .glass-home .site-navbar > a > span:first-child { width:36px; height:36px; }
+  .glass-home .site-header .site-navbar nav a { font-size:13px; }
   .interior-page .container { padding-inline:20px; }
   .interior-page .section { padding-block:48px 64px; }
   .interior-page .prose > p { font-size:16px; }
   .interior-page .article-wave { margin-block:28px; aspect-ratio:16/9; }
-}
-@media(max-width:360px) {
-  .glass-home .site-navbar > a > span:first-child { display:none; }
-  .glass-home .site-header .site-navbar nav { gap:10px; }
 }
 @media print {
   .glass-home { display:block; background:white!important; color:#111!important; --color-ink:#111; --color-ink-muted:#333; --color-border:#bbb; }
