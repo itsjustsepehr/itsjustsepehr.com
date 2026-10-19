@@ -1,0 +1,65 @@
+<script>
+  async function renderArticleDiagrams() {
+    const blocks = Array.from(document.querySelectorAll<HTMLElement>('article pre[data-language="mermaid"]'))
+      .filter(block => !block.dataset.mermaidRendering);
+    if (!blocks.length) return;
+    blocks.forEach(block => { block.dataset.mermaidRendering = 'true'; });
+
+    try {
+      const { default: mermaid } = await import('mermaid');
+      await document.fonts.ready;
+      const persian = document.documentElement.lang === 'fa';
+      mermaid.initialize({
+        startOnLoad: false,
+        securityLevel: 'strict',
+        theme: 'dark',
+        fontFamily: persian ? 'Vazirmatn Variable, sans-serif' : 'Inter Variable, sans-serif',
+        flowchart: { htmlLabels: true, useMaxWidth: true },
+      });
+      for (const [index, block] of blocks.entries()) {
+        const diagram = document.createElement('div');
+        diagram.className = 'article-diagram';
+        diagram.dir = 'ltr';
+        diagram.tabIndex = 0;
+        diagram.setAttribute('role', 'region');
+        diagram.setAttribute('aria-label', persian ? `نمودار ${index + 1}` : `Diagram ${index + 1}`);
+        // Render beside the source, replacing it only after successful rendering.
+        block.after(diagram);
+        try {
+          const { svg, bindFunctions } = await mermaid.render(
+            `article-diagram-${crypto.randomUUID()}`,
+            block.querySelector('code')?.textContent ?? block.textContent ?? '',
+            diagram,
+          );
+          diagram.innerHTML = svg;
+          bindFunctions?.(diagram);
+          block.replaceWith(diagram);
+        } catch (error) {
+          diagram.remove();
+          delete block.dataset.mermaidRendering;
+          console.error('Could not render article diagram:', error);
+        }
+      }
+    } catch (error) {
+      blocks.forEach(block => { delete block.dataset.mermaidRendering; });
+      console.error('Could not load article diagrams:', error);
+    }
+  }
+  void renderArticleDiagrams();
+  document.addEventListener('astro:page-load', renderArticleDiagrams);
+</script>
+
+<style is:global>
+  .article-diagram {
+    margin-block: 24px;
+    padding: 16px;
+    overflow-x: auto;
+    border: 1px solid #303747;
+    border-radius: 12px;
+    background: #151b26;
+  }
+  .article-diagram:focus-visible { outline: 2px solid #a7c7ff; outline-offset: 4px; }
+  .article-diagram svg { display: block; margin-inline: auto; height: auto; }
+  .article-diagram .label p { margin: 0; line-height: 1.5; }
+  :lang(fa) .article-diagram .label { direction: rtl; unicode-bidi: plaintext; }
+</style>

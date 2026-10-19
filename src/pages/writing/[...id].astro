@@ -1,6 +1,7 @@
 ---
 import { render, type CollectionEntry } from 'astro:content';
 import Base from '../../layouts/Base.astro';
+import ArticleDiagrams from '../../components/ArticleDiagrams.astro';
 import { publishedPosts } from '../../lib/posts';
 import { href, categoryName } from '../../lib/site';
 export async function getStaticPaths() { return (await publishedPosts()).map(post => ({ params: { id: post.id }, props: { post } })); }
@@ -11,4 +12,5 @@ const { data } = post;
 ---
 <Base title={data.title} description={data.description} language={data.language} article date={data.date}>
   <article class="container section"><header class="prose"><a class="text-link text-sm" href={href(`categories/${data.category}/`)}>{categoryName(data.category)}</a><h1 class="mt-6 text-[clamp(2rem,4vw,3.5rem)]">{data.title}</h1><p class="mt-6 text-xl text-ink-muted">{data.description}</p><div class="mt-6 flex flex-wrap gap-4 text-sm text-ink-muted"><span>{data.language === 'fa' ? 'سپهر' : 'Sepehr'}</span><time datetime={data.date.toISOString()}>{data.date.toLocaleDateString(data.language === 'fa' ? 'fa-IR' : 'en-GB', { dateStyle: 'long', timeZone: 'UTC' })}</time></div></header>{data.cover.includes('placeholders/') ? <div class="article-wave" aria-hidden="true"><svg viewBox="0 0 960 360" fill="none"><defs><linearGradient id="article-wave"><stop stop-color="#80aaff" stop-opacity="0.1"/><stop offset=".5" stop-color="#d9e6ff"/><stop offset="1" stop-color="#a78bfa" stop-opacity=".2"/></linearGradient></defs>{Array.from({length:9},(_,i)=><path d={`M-40 ${100+i*18} C 250 ${-80+i*30}, 530 ${520-i*22}, 1000 ${90+i*20}`} stroke="url(#article-wave)" stroke-width="1"/>)}</svg></div> : <img class="mx-auto my-12 aspect-video w-full max-w-4xl rounded-xl border border-border object-cover" src={href(data.cover)} alt={data.coverAlt} width="960" height="540" />}<div class="prose"><Content /></div><footer class="prose mt-12 border-t border-border pt-6"><ul class="flex flex-wrap gap-3" aria-label={data.language === 'fa' ? 'برچسب‌ها' : 'Tags'}>{data.tags.map(tag => <li class="rounded border border-border px-3 py-1 text-sm text-ink-muted">#{tag}</li>)}</ul><a class="text-link mt-6" href={href('writing/')}>{data.language === 'fa' ? 'همهٔ نوشته‌ها' : '← All writing'}</a></footer></article>
+  <ArticleDiagrams />
 </Base>
