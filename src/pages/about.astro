@@ -1,5 +1,41 @@
 ---
-import Base from '../layouts/Base.astro';
-import { href } from '../lib/site';
+import Base from "../layouts/Base.astro";
+import { href } from "../lib/site";
 ---
-<Base title="About Sepehr"><div class="container section"><div class="prose"><p class="eyebrow">A little context</p><h1>Hi, I’m Sepehr.</h1><p class="text-xl text-ink-muted">A software engineer with 8 years of experience, currently working on banking systems in Iran.</p><h2>Reliable software. Clear thinking.</h2><p>I’m interested in how we build systems that people can depend on. Banking software makes that question especially concrete: correctness and reliability are part of the everyday work.</p><p>Here, I share notes on engineering, software architecture, web development, and artificial intelligence. Some are in English, some in Persian.</p><h2>What you’ll find here</h2><p>Technical explanations, practical examples, and room to think through trade-offs. A place to document the learning as much as the result.</p><div class="flex flex-wrap gap-4 mt-8"><a class="button primary" href={href('writing/')}>Read my writing</a><a class="button" href={href('resume/')}>View résumé</a></div></div></div></Base>
+
+<Base title="About Sepehr">
+  <div class="container section">
+    <div class="prose">
+      <p class="eyebrow">A little context</p>
+      <h1>Hi, I’m Sepehr.</h1>
+      <p class="text-xl text-ink-muted">
+        A software engineer with 8 years of experience, currently working on
+        banking systems in Iran.
+      </p>
+      <h2>Reliable software. Clear thinking.</h2>
+      <p>
+        I’m interested in how we build systems that people can depend on.
+        Banking software makes that question especially concrete: correctness
+        and reliability are part of the everyday work.
+      </p>
+      <p>
+        Here, I share notes on engineering, software architecture, web
+        development, and artificial intelligence. Some are in English, some in
+        Persian.
+      </p>
+      <h2>What you’ll find here</h2>
+      <p>
+        Technical explanations, practical examples, and room to think through
+        trade-offs. A place to document the learning as much as the result.
+      </p>
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a class="button primary" href={href("writing/")}>
+          Read my writing
+        </a>
+        <a class="button" href={href("resume/")}>
+          View résumé
+        </a>
+      </div>
+    </div>
+  </div>
+</Base>

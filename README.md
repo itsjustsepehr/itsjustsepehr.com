@@ -16,6 +16,7 @@ For reproducible installation and production verification:
 ```sh
 npm ci
 npm run build
+npm run check:output
 npm run preview
 ```
 
@@ -66,18 +67,18 @@ Explain the assumption that matters.
 
 Only trusted authors should edit MDX: it is executable project source. Use the `href` helper for internal links and public asset paths to support project-site prefixes. Put final covers in `public/covers/`, then set a root-relative `cover` value such as `/covers/my-article.webp`. Do not include a repository prefix in frontmatter.
 
-The five published articles are starter examples for review and replacement. A sixth draft demonstrates filtering. The résumé includes only supplied facts; the portfolio is an explicit empty state. No invented employers, project achievements, or education appear.
+The collection currently contains two published Persian articles. The résumé includes only supplied facts; the portfolio is an explicit empty state. No invented employers, project achievements, or education appear.
 
 ## Images and typography
 
-The hero and navbar use initial-based portrait placeholders. Replace the frame in `src/pages/index.astro` with your own image, retaining a 4:5 aspect ratio and explicit width/height. Replace the navbar initial in `Base.astro` with a circular avatar. Article cover placeholders are 960×540 SVG assets, not generated illustrations. Use a raster image if you later add social-preview images, since platform support for SVG previews varies.
+The homepage uses the approved animated shader hero. Replace the navbar initial in `Base.astro` with a circular avatar. Article cover placeholders are 960×540 SVG assets, not generated illustrations. Use a raster image if you later add social-preview images, since platform support for SVG previews varies.
 
 Inter and Vazirmatn are bundled locally through Fontsource packages. Code uses system monospace. Keep only these two custom families.
 
 ## GitHub Pages deployment
 
 Repository: `itsjustsepehr/itsjustsepehr.com`.
-Intended URL after successful deployment: `https://itsjustsepehr.github.io/itsjustsepehr.com/`.
+Production URL: `https://itsjustsepehr.com/`. The deployment workflow supplies this origin and `/` as the base path.
 
 1. Create an empty public repository named `itsjustsepehr.com` in the `itsjustsepehr` account.
 2. In **Settings → Pages → Build and deployment**, choose **GitHub Actions**.
@@ -123,7 +124,7 @@ Visit the printed origin with `/personal-site/` appended. Root-relative links us
 3. Add `public/CNAME` containing only the hostname.
 4. Rebuild and redeploy; enable HTTPS when GitHub makes it available.
 
-For local custom-domain validation, export `SITE_URL` and `BASE_PATH` in the shell. `.env.example` documents these variables; the config reads process environment variables, not a local `.env` file automatically.
+For local custom-domain validation, export `SITE_URL` and `BASE_PATH` in the shell. `.env.example` documents these variables; the config loads a local `.env` file when present; exported environment variables take precedence.
 
 Official guides: [Astro GitHub Pages deployment](https://docs.astro.build/en/guides/deploy/github/) and [GitHub custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
 
@@ -152,12 +153,12 @@ animation. The rest of the page keeps the existing Astro components.
 From a clean checkout run `npm ci`, `npm run build`, then `npm run dev`.
 React support uses `@astrojs/react`, `react`, and `react-dom`; the supplied
 components also require `three`, `@radix-ui/react-slot`,
-`class-variance-authority`, `clsx`, and `tailwind-merge`, with React/Three types.
+`clsx` and `tailwind-merge`, with React/Three types.
 All are recorded in package.json and the lockfile.
 
 `HomeHero` receives only `writingHref` and `aboutHref`, built with the existing
 base-path helper. It needs no providers, remote assets, or global state.
-`src/components/demo.tsx` is an un-routed composition example. The hero preserves
+The hero preserves
 Sepehr's introduction rather than publishing the generic design/availability
 claims from the sample.
 
@@ -167,6 +168,4 @@ accounts for pixel ratio (capped at 1.5); animation uses elapsed time, pauses of
 screen/in background tabs, and respects reduced motion. A CSS background remains
 when WebGL is unavailable or its context is lost. Resources/listeners are disposed
 on unmount. The liquid button uses Radix Slottable for real links, unique filter
-IDs, valid inline markup, and a blur fallback. Button and MetalButton exports are
-retained, with MetalButton interactions using CSS so caller event handlers remain
-intact. Header typography and spacing adapt to mobile without changing navigation.
+IDs, valid inline markup, and a blur fallback. The liquid button keeps only the appearance used by the hero; unused button exports and variant configuration have been removed. Header typography and spacing adapt to mobile without changing navigation.

@@ -78,41 +78,21 @@ Articles have one primary category and multiple tags. English and Persian articl
 Start future iterations with real portrait, reviewed writing, verified experience, and real case studies. Preserve the restrained palette and reading-first layout.
 
 
-## Homepage: shader and glass extension
+## Current glass theme (supersedes the original light visual direction above)
 
-The homepage now uses the approved shader hero as its visual foundation. Its
-`glass-home` body class scopes the dark palette; other routes retain their
-existing reading theme. `src/styles/home.css` owns this extension.
+All routes share the dark palette in `src/styles/global.css`; `home.css` owns
+homepage layout and reusable glass surfaces, and `site.css` owns reading surfaces
+and the shared navigation layout. Prose stays within 65ch.
 
-- Canvas: near-black `#08090d`; elevated panels `#101218`; borders `#292c35`.
-- Text: `#f3f4f6` for headings, `#a8acb8` for supporting copy; pale blue actions.
-- Type: Inter with restrained uppercase labels and large, tightly spaced titles;
-  Persian content keeps Vazirmatn, RTL direction, and comfortable line height.
-- Surfaces: fine borders, subtle translucent fills, rounded cards and pill links.
-- Layout: 1200px content width; two-column article grid; asymmetrical topic grid;
-  framed about panel; portfolio closing section. Grids collapse on small screens.
-- Article imagery: preserve actual cover images. For placeholder covers only,
-  render lightweight SVG wave artwork inspired by the hero. No external assets.
-- Animation: one WebGL canvas in the hero; no additional React islands. Existing
-  reduced-motion, offscreen pause, and WebGL fallback behavior are retained.
-- Navigation: native links, visible keyboard focus, base-path-aware destinations,
-  accessible section headings and decorative artwork hidden from screen readers.
+The homepage has one React island for the approved shader and liquid button.
+Retain offscreen/background pause, reduced-motion support, WebGL fallback, and
+resource cleanup. Interior pages do not hydrate the hero.
 
-Homepage-specific article cards live in `src/components/HomePostCard.astro` so
-writing index and category pages keep their current components.
+`PostCard.astro` serves the homepage, writing index, and category listings.
+`CategoryGrid.astro` serves both the homepage and category index. Placeholder
+covers use SVG waves; real covers remain unchanged. Raster article covers are
+also passed to social metadata; placeholder and SVG covers use a summary card.
 
-
-## Site-wide glass theme (supersedes homepage-only scope above)
-
-The shared Base layout now imports the glass palette and `src/styles/site.css`
-for every HTML page. `interior-page` adds restrained ambient backgrounds, readable
-prose, glass buttons, dark callouts, tags, and code/table treatments. Homepage
-layout styles remain reusable without adding WebGL or React to interior pages.
-Writing/category listing cards reuse the homepage card component, and category
-navigation uses the same glass topic panels. Real article covers are preserved;
-placeholder covers receive decorative SVG waves. Persian content retains RTL and
-Vazirmatn. Résumé printing switches to white with dark text.
-
-The navbar places Writing, Categories, and About on the left, followed by the
-brand on the right. DOM order follows visual order, including on mobile and
-Persian pages; the navigation itself stays English and LTR.
+Navigation uses two rows: brand first, then left-aligned links. Navigation stays
+English/LTR on Persian pages. Persian typography uses inherited `:lang(fa)`.
+Printing hides the site shell and controls while retaining article headers.
