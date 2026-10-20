@@ -7,7 +7,7 @@ interface Props { home?: boolean; title: string; description?: string; language?
 const { home = false, title, description = 'Sepehr is a software engineer with eight years of experience, working on banking systems in Iran. Notes on reliable software and the craft of engineering.', language = 'en', image, article = false, date, noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const fullTitle = title === 'itsjustsepehr' ? 'itsjustsepehr — Software engineer' : `${title} · itsjustsepehr`;
-const nav = [{ label: 'Writing', path: 'writing/' }, { label: 'Categories', path: 'categories/' }, { label: 'About', path: 'about/' }];
+const nav = [{ label: 'Writing', path: 'writing/' }, { label: 'Categories', path: 'categories/' }, { label: 'About', path: 'about/' }, { label: 'Résumé', path: 'resume/' }];
 ---
 <!doctype html>
 <html lang={language} dir={language === 'fa' ? 'rtl' : 'ltr'}>
