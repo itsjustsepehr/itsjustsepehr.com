@@ -2,5 +2,95 @@
 import Base from '../layouts/Base.astro';
 import { href } from '../lib/site';
 ---
-<Base title="Résumé"><div class="container section"><div class="prose"><p class="eyebrow">Professional overview</p><h1>Sepehr</h1><p class="text-xl text-ink-muted">Software engineer / Banking systems</p><h2>Profile</h2><p>Software engineer with 8 years of experience, currently working on banking systems in Iran.</p><h2>Focus</h2><ul><li>Software engineering</li><li>Banking systems</li><li>Reliable systems and software architecture</li></ul><h2>Detailed experience</h2><p>Full employment history, selected achievements, and education will be added here.</p><div class="flex flex-wrap gap-4 mt-8 no-print"><button class="button" id="print-resume">Print / Save as PDF</button><a class="text-link" href={href('portfolio/')}>View portfolio →</a></div></div></div></Base>
-<script>document.getElementById('print-resume')?.addEventListener('click', () => window.print());</script>
+<Base
+  title="Résumé"
+  description="Sepehr Mirza Ali Mohammadi — Senior Software Engineer with 8+ years of experience in frontend architecture, technical leadership, and enterprise fintech."
+>
+  <div class="container section">
+    <div class="prose resume">
+      <p class="eyebrow">Professional overview</p>
+      <h1>Sepehr Mirza Ali Mohammadi</h1>
+      <p class="text-xl text-ink-muted">Senior Software Engineer · Frontend &amp; Technical Leadership · Fintech</p>
+      <p>Satarkhan, Tehran, Iran<br />
+        <a class="text-link" href="mailto:sepehrinreallife@gmail.com">sepehrinreallife@gmail.com</a><br />
+        <a class="text-link" href="tel:+989999604166">+98 999 960-4166</a>
+      </p>
+      <div class="flex flex-wrap gap-4 no-print">
+        <a class="button primary" href={href('downloads/sepehr-resume-en.pdf')} download="Sepehr-Resume-English.pdf">Download résumé (PDF, English)</a>
+        <button class="button" type="button" id="print-resume">Print this page</button>
+      </div>
+
+      <h2>Professional summary</h2>
+      <p>Hands-on Senior Software Engineer with 8+ years of experience specializing in frontend architecture, cross-functional system design, and enterprise fintech. Proven track record of building financial platforms for Shahr Bank. Combines strong frontend leadership with backend architecture and infrastructure management to deliver robust, business-aligned solutions.</p>
+
+      <h2>Experience</h2>
+      <h3>Faash — Senior Software Engineer</h3>
+      <p>Technology subsidiary of Shahr Bank · Tehran<br />2025–Present</p>
+      <p>Promoted from Software Engineer within five months based on technical delivery and expanded leadership scope.</p>
+      <ul>
+        <li><strong>Technical leadership:</strong> Lead a 4-person frontend sub-team within an 8-person unit. Manage task assignment, conduct code reviews, participate in hiring, and establish engineering conventions with Git and Husky.</li>
+        <li><strong>Enterprise fintech:</strong> Lead frontend architecture and workflow design for Shahr Bank’s core Supply Chain Finance (SCF) and Barat systems. Shape product strategy and translate business logic for engineering teams.</li>
+        <li><strong>Backend architecture:</strong> Independently designed and built a custom Internet Payment Gateway (IPG) for enterprise bill payments using Python, FastAPI, and Oracle, featuring custom application-layer cryptography.</li>
+        <li><strong>Infrastructure and system design:</strong> Manage production and staging deployments with Docker, Nginx, GitLab CI, and Linux. Collaborate with the .NET team on full-stack system design and bottleneck resolution.</li>
+      </ul>
+
+      <h3>Weblink — Founder / Full-Stack Developer</h3>
+      <p>Tehran · 2020–2023</p>
+      <ul>
+        <li>Founded and led an 8-person engineering team focused on healthcare software.</li>
+        <li>Architected and deployed a clinic queue management application using Next.js, PostgreSQL, and Prisma, managing full-stack development, client relations, and production releases.</li>
+      </ul>
+
+      <h3>Health Tourism Development Center — Technical Consultant</h3>
+      <p>Muscat, Oman · 2019–Present · Part-time</p>
+      <ul>
+        <li>Provide hands-on architectural review, system design consulting, and advanced troubleshooting for diverse software projects.</li>
+      </ul>
+
+      <h3>Novatixe — Founder / Full-Stack Developer</h3>
+      <p>Tehran · 2018–2020</p>
+      <ul>
+        <li>Founded a 4-person engineering team, architecting and delivering 6+ client projects over two years.</li>
+      </ul>
+
+      <h3>Independent / Freelance — Software Developer</h3>
+      <p>Tehran · 2016–2018</p>
+      <ul>
+        <li>Built custom web applications using PHP, Laravel, and WordPress.</li>
+      </ul>
+
+      <h2>Technical skills</h2>
+      <ul>
+        <li><strong>Languages:</strong> TypeScript, JavaScript, Python, PHP, SQL, Bash</li>
+        <li><strong>Frameworks and runtimes:</strong> React, Next.js, FastAPI, Node.js</li>
+        <li><strong>Databases:</strong> PostgreSQL, Oracle</li>
+        <li><strong>Infrastructure and tools:</strong> Linux, Docker, GitLab CI, Git, Nginx, HAProxy</li>
+      </ul>
+
+      <h2>Education</h2>
+      <ul>
+        <li>Studies and coursework in Computer Science · 2023–Present</li>
+        <li>Studies and coursework in Computer Engineering · 2018–2023</li>
+      </ul>
+
+      <h2>Languages</h2>
+      <ul>
+        <li>Persian — Native</li>
+        <li>English — Advanced / C1; proficient in technical and architectural documentation</li>
+      </ul>
+      <div class="mt-8 no-print"><a class="text-link" href={href('portfolio/')}>View portfolio →</a></div>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .resume { max-width:65ch; }
+  .resume a { overflow-wrap:anywhere; }
+  @media print {
+    .resume h2,.resume h3 { break-after:avoid; }
+    .resume li { break-inside:avoid; }
+  }
+</style>
+<script>
+  document.getElementById('print-resume')?.addEventListener('click', () => window.print());
+</script>
